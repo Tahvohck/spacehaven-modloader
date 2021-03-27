@@ -32,6 +32,7 @@ class RegisteredTexture:
 
 RegTexLibrary = List[RegisteredTexture]
 
+
 class TextureManager:
     _TexFileResolution = 2000
     _RegionIdLastCore = 0
@@ -186,6 +187,7 @@ class TextureManager:
             return rid
         else:
             return cls.RemappedRegionIDs[rid]
+
 
 if __name__ == "__main__":
     """Run some basic unit tests."""
