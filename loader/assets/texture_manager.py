@@ -68,6 +68,9 @@ class TextureManager:
         as-is, custom textures will have their region ID remapped to the next available
         sequential region ID.
         """
+        if not cls.customTextureExists(mod, texPath):
+            raise ValueError(f"Could not register {texPath}, file does not exist. Mod: {mod}")
+
         if cls.isCoreRegion(regionID):
             tmp = RegisteredTexture(mod, texPath, regionID)
             cls.RegisteredTexturesCoreRegion.append(tmp)
@@ -115,6 +118,17 @@ class TextureManager:
             rID = int(rID)
             return rID > -1 and rID <= cls._RegionIdLastCore
         except ValueError:
+            return False
+
+    @classmethod
+    def customTextureExists(cls, mod, texPath):
+        """
+        Verify whether or not a RegisteredTexture can be created, i.e. if the file exists in the mod's textures/ folder
+        """
+        try:
+            RegisteredTexture(mod, texPath, -1)
+            return True
+        except FileNotFoundError as e:
             return False
 
     @classmethod
