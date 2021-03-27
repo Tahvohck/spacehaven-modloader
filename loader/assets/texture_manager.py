@@ -69,7 +69,8 @@ class TextureManager:
         sequential region ID.
         """
         if not cls.customTextureExists(mod, texPath):
-            raise ValueError(f"Could not register {texPath}, file does not exist. Mod: {mod}")
+            modName = os.path.basename(os.path.realpath(mod))
+            raise ValueError(f"Could not register {texPath}, file does not exist. Mod: {modName}")
 
         if cls.isCoreRegion(regionID):
             tmp = RegisteredTexture(mod, texPath, regionID)
